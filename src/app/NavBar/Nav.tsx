@@ -58,10 +58,12 @@ const Nav = ({ openNav }: Props) => {
         {/* Button */}
         <div className="flex items-center space-x-4">
           {/* CV Button */}
-          <button className="px-8 py-3.5 text-small cursor-pointer rounded-lg text-black bg-blue-300 hover:bg-cyan-700 hover:text-white transition-all duration-300 flex items-center space-x-2">
-            <BiDownload className="w-5 h-5" />
-            <span>Download CV</span>
-          </button>
+          <Link href="/cv.pdf" target="_blank">
+            <button className="px-8 py-3.5 text-small cursor-pointer rounded-lg text-black bg-blue-300 hover:bg-cyan-700 hover:text-white transition-all duration-300 flex items-center space-x-2">
+              <BiDownload className="w-5 h-5" />
+              <span>View Resume</span>
+            </button>
+          </Link>
           {/* Burger Menu */}
           <HiBars3BottomRight
             onClick={openNav}

@@ -9,7 +9,7 @@ import {
   FaJs,
   FaPython,
 } from "react-icons/fa";
-import { SiNextdotjs, SiSanity, SiTailwindcss } from "react-icons/si";
+import { SiNextdotjs, SiSanity } from "react-icons/si";
 
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import {
@@ -19,7 +19,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { motion } from "framer-motion";
 
 // { about data }
 const about = {
@@ -125,20 +124,13 @@ const skills = {
 
 const Resume = () => {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{
-        opacity: 1,
-        transition: { delay: 0.4, duration: 0.4, ease: "easeIn" },
-      }}
-      className="min-h-[80vh] flex items-center justify-center pt-12"
-    >
-      <div className="container mx-auto ">
+    <div className="min-h-[80vh] flex items-center justify-center pt-12">
+      <div className="container mx-auto">
         <Tabs
           defaultValue="education"
           className=" flex flex-col xl:flex-row gap-[60px]"
         >
-          <TabsList className="flex flex-col w-full max-w-[380px] mx-auto xl:mx-0 gap-6">
+          <TabsList data-aos="fade-right" className="flex flex-col w-full max-w-[380px] mx-auto xl:mx-0 gap-6">
             <div className="h-auto flex flex-col gap-6 -mt-10">
               <h2 className="text-white font-bold text-4xl">Why Hire Me ?</h2>
               <p className="text-white/60 ">
@@ -154,7 +146,7 @@ const Resume = () => {
           </TabsList>
 
           {/* content */}
-          <div className="min-h-[70vh] w-full">
+          <div data-aos="fade-left" className="min-h-[70vh] w-full ">
             {/* education */}
             <TabsContent value="education" className="w-full text-white">
               <div className="flex flex-col gap-[30px] text-center xl:text-left">
@@ -162,8 +154,8 @@ const Resume = () => {
                 <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
                   {education.description}
                 </p>
-                <ScrollArea className="h-[400px] ">
-                  <ul className="grid grid-cols-1 mx-5 xl:mx-0 lg:grid-cols-2 gap-[30px]">
+                <ScrollArea className="h-[400px]">
+                  <ul data-aos="flip-left" data-aos-delay="600" className="grid grid-cols-1 mx-5 xl:mx-0 lg:grid-cols-2 gap-[30px]">
                     {education.items.map((item, index) => {
                       return (
                         <li
@@ -195,7 +187,7 @@ const Resume = () => {
                     {skills.description}
                   </p>
                 </div>
-                <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 xl:gap-[30px]">
+                <ul data-aos="fade-right" data-aos-delay="600" className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 xl:gap-[30px]">
                   {skills.items.map((skill, index) => {
                     return (
                       <li key={index}>
@@ -222,7 +214,7 @@ const Resume = () => {
               value="about"
               className="w-full text-center xl:text-left text-white"
             >
-              <div className="flex flex-col gap-[30px]">
+              <div data-aos="fade-zoon-in" data-aos-delay="300" className="flex flex-col gap-[30px]">
                 <h3 className="text-4xl font-bold">{about.title}</h3>
                 <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
                   {about.description}
@@ -231,6 +223,7 @@ const Resume = () => {
                   {about.info.map((item, index) => {
                     return (
                       <li
+                       data-aos="fade-up" data-aos-delay="200" 
                         key={index}
                         className="flex items-center justify-center xl:justify-start gap-4"
                       >
@@ -245,7 +238,7 @@ const Resume = () => {
           </div>
         </Tabs>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

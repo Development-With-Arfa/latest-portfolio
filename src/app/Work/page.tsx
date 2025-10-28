@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import React, { useState, useRef } from "react";
+import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import {
   Tooltip,
@@ -12,6 +12,7 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { BsArrowUpRight, BsGithub } from "react-icons/bs";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 const projects = [
   {
@@ -150,35 +151,43 @@ const projects = [
 
 const Work = () => {
   const [project, setProject] = useState(projects[0]);
+  const swiperRef = useRef<SwiperClass | null>(null);
 
-  const handleSlideChange = (swiper: any) => {
+  const handleSlideChange = (swiper: SwiperClass) => {
     const currentIndex = swiper.activeIndex;
     setProject(projects[currentIndex]);
   };
 
+  const handleNext = () => swiperRef.current?.slideNext();
+  const handlePrev = () => swiperRef.current?.slidePrev();
+
   return (
     <>
-      <h2 className="text-5xl flex justify-center font-bold text-white/90 py-12">
+      <h2
+        data-aos="fade-up"
+        data-aos-delay="200"
+        className="text-5xl flex justify-center font-bold text-white/90 py-12"
+      >
         My Work
       </h2>
       <section className="min-h-[80vh] flex flex-col justify-center xl:px-0">
         <div className="container mx-auto text-white">
           <div className="flex flex-col xl:flex-row xl:gap-[30px]">
-            <div className="w-full xl:w-[50%] xl:h-[460px] flex flex-col xl:justify-between order-2 xl:order-none ml-5">
+            <div data-aos="fade-up" className="w-full xl:w-[50%] xl:h-[460px] flex flex-col xl:justify-between order-2 xl:order-none ml-5">
               <div className="flex flex-col gap-[30px] h-[50%]">
                 {/* outline no */}
-                <div className="text-8xl leading-none font-extrabold text-transparent [-webkit-text-stroke:1px_cyan]">
+                <div data-aos="zoom-in"  className="text-8xl leading-none font-extrabold text-transparent [-webkit-text-stroke:1px_cyan]">
                   {" "}
                   {project.num}
                 </div>
                 {/* project-catagory */}
-                <h2 className="text-[42px] font-bold leading-none text-white group-hover:text-cyan-300 transition-all duration-500 capitalize">
+                <h2 dats-aos="fade-up" data-aos-delay="200" className="text-[42px] font-bold leading-none text-white group-hover:text-cyan-300 transition-all duration-500 capitalize">
                   {project.name}
                 </h2>
                 {/* description */}
-                <p className="text-white/60">{project.description}</p>
+                <p  dats-aos="fade-up" data-aos-delay="400" className="text-white/60">{project.description}</p>
                 {/* stack */}
-                <ul className="flex gap-4">
+                <ul  dats-aos="fade-up" data-aos-delay="600"  className="flex gap-4">
                   {project.stack.map((item, index) => {
                     return (
                       <li key={index} className="text-xl text-cyan-200">
@@ -197,7 +206,7 @@ const Work = () => {
                   <Link href={project.live} target="_main">
                     <TooltipProvider delayDuration={100}>
                       <Tooltip>
-                        <TooltipTrigger className="h-[70px] w-[70px] rounded-full bg-white/5 flex justify-center cursor-pointer items-center group">
+                        <TooltipTrigger  data-aos="zoom-in" data-aos-delay="100" className="h-[70px] w-[70px] rounded-full bg-white/5 flex justify-center cursor-pointer items-center group">
                           <BsArrowUpRight className="text-white text-3xl group-hover:text-cyan-200" />
                         </TooltipTrigger>
                         <TooltipContent>
@@ -211,7 +220,7 @@ const Work = () => {
                   <Link href={project.github} target="_main">
                     <TooltipProvider delayDuration={100}>
                       <Tooltip>
-                        <TooltipTrigger className="h-[70px] w-[70px] rounded-full bg-white/5 flex justify-center items-center group cursor-pointer">
+                        <TooltipTrigger data-aos="zoom-in" data-aos-delay="100"  className="h-[70px] w-[70px] rounded-full bg-white/5 flex justify-center items-center group cursor-pointer">
                           <BsGithub className="text-white text-3xl group-hover:text-cyan-200" />
                         </TooltipTrigger>
                         <TooltipContent>
@@ -229,6 +238,7 @@ const Work = () => {
                 slidesPerView={1}
                 className="xl:h-[520px] mb-12"
                 onSlideChange={handleSlideChange}
+                onSwiper={(swiper) => (swiperRef.current = swiper)}
               >
                 {projects.map((project, index) => {
                   return (
@@ -237,13 +247,33 @@ const Work = () => {
                         {/* overlay */}
                         <div></div>
                         {/* image */}
-                        <div className="relative w-full h-full">
+                        <div
+                          data-aos="flip-left"
+                          data-aos-easing="ease-out-cubic"
+                          data-aos-duration="1000"
+                          className="relative w-full h-full"
+                        >
                           <Image
                             src={project.image}
                             fill
                             className="object-cover"
                             alt=""
                           />
+                        </div>
+                        {/* Button */}
+                        <div className="absolute bottom-4 flex gap-6 justify-center items-center z-20">
+                          <button
+                            onClick={handlePrev}
+                            className="p-2 rounded-full bg-white/80 hover:bg-white transition-all shadow-md"
+                          >
+                            <FaArrowLeft className="w-5 h-5 text-gray-800" />
+                          </button>
+                          <button
+                            onClick={handleNext}
+                            className="p-2 rounded-full bg-white/80 hover:bg-white transition-all shadow-md"
+                          >
+                            <FaArrowRight className="w-5 h-5 text-gray-800" />
+                          </button>
                         </div>
                       </div>
                     </SwiperSlide>

@@ -5,18 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
   FaEnvelope,
   FaGithub,
-  FaMapMarkerAlt,
   FaPhoneAlt,
 } from "react-icons/fa";
 import { SiVercel } from "react-icons/si";
@@ -25,7 +15,7 @@ const Info = [
   {
     icon: <FaPhoneAlt />,
     title: "Phone",
-    description: "(+92) 326954731",
+    description: "(+92) 3268954731",
   },
   {
     icon: <FaEnvelope />,
@@ -47,8 +37,10 @@ const Info = [
 const Contact = () => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  async function handleSubmit(e: any) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const form = e.currentTarget;
+
     const response = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
       headers: {
@@ -56,30 +48,31 @@ const Contact = () => {
         Accept: "application/json",
       },
       body: JSON.stringify({
-        access_key: "1d55e920-43c4-42dc-98b3-45f0ced53148",
-        name: e.target.name.value,
-        email: e.target.email.value,
-        message: e.target.message.value,
-      }),
-    });
-    const result = await response.json();
-    if (result.success) {
-      setSuccessMessage("✅ Form submitted successfully!");
-      e.target.reset(); // Clear form after submit
-    } else {
-      setSuccessMessage("❌ Failed to submit form. Please try again.");
-    }
+      access_key: "1d55e920-43c4-42dc-98b3-45f0ced53148",
+      name: (form.elements.namedItem("name") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+    }),
+  });
+     const result = await response.json();
+
+  if (result.success) {
+    setSuccessMessage("✅ Form submitted successfully!");
+    form.reset(); // Clear form after submit
+  } else {
+    setSuccessMessage("❌ Failed to submit form. Please try again.");
   }
+}
 
   return (
     <section className="py-15 text-white">
-      <h2 className="text-5xl flex justify-center font-bold text-white/90 mb-10">
+      <h2 data-aos="fade-up" data-aos-delay="200" className="text-5xl flex justify-center font-bold text-white/90 mb-10">
         Contact
       </h2>
       <div className="container mx-auto ">
         <div className="flex flex-col xl:flex-row gap-[30px] xl:px-15">
           {/* form */}
-          <div className="xl:w-[54%] order-2 xl:order-none">
+          <div data-aos="zoom-in" data-aos-delay="200" className="xl:w-[54%] order-2 xl:order-none">
             <form
               onSubmit={handleSubmit}
               className="flex flex-col gap-6 p-10 bg-[#27272c] rounded-xl"
@@ -123,7 +116,7 @@ const Contact = () => {
             <ul className="flex flex-col gap-10">
               {Info.map((item, index) => {
                 return (
-                  <li key={index} className="flex items-center gap-6">
+                  <li  data-aos="fade-up" data-aos-delay="300" key={index} className="flex items-center gap-6">
                     <div className="w-[52px] h-[52px] xl:w-[72px] xl:h-[72px] bg-[#27272c] text-cyan-300 flex items-center justify-center rounded-md">
                       <div className="text-[28px]">{item.icon}</div>
                     </div>
