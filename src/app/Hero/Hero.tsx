@@ -30,8 +30,8 @@ const Hero = () => {
               options={{
                 strings: [
                   "AI Developer",
-                  "Frontened Developer",
-                  "Backened Developer",
+                  "Frontend Developer",
+                  "Backend Developer",
                 ],
                 autoStart: true,
                 loop: true,
